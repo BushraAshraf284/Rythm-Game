@@ -25,20 +25,16 @@ public class Block : MonoBehaviour
         if(other.tag.Contains("Sword"))
         {
             Hit();
-            if (other.CompareTag("ColorASword") && blockColor == Color.COLORA) //Correct Case 1
+            if ((other.CompareTag("ColorASword") && blockColor == Color.COLORA) || //Correct Case 1
+                (other.CompareTag("ColorBSword") && blockColor == Color.COLORB)) // Correct Case 2
             {
-                
-            }
-            else if (other.CompareTag("ColorBSword") && blockColor == Color.COLORB) // Correct Case 2
-            {
-
+                GameManager.Instance.AddScore();
             }
             else //wrong case
             {
-
+                GameManager.Instance.HitWrongBlock();
             }
-        }
-       
+        }       
       
     }
 

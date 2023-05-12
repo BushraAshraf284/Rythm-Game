@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public TMP_Text ScoreText;
+    public Image LifeTimeBar;
+    // Singleton
+    #region Singleton
+    public static UIController Instance;
+
+    private void Awake()
     {
-        
+        if (Instance != null)
+            Destroy(Instance);
+
+        Instance = this;
+
+    }
+    #endregion
+    public void UpdatescoreText()
+    {
+        ScoreText.text = GameManager.Instance.score.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateLifeBar()
     {
-        
+        LifeTimeBar.fillAmount = GameManager.Instance.LifeTime;
     }
+    
 }
