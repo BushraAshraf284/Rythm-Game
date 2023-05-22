@@ -14,6 +14,9 @@ public class Block : MonoBehaviour
     Rigidbody brokenLeftRb;
     Rigidbody brokenRightRb;
 
+    const string SWORD_A_TAG = "ColorASword";
+    const string SWORD_B_TAG = "ColorBSword";
+
     private void Start()
     {
         brokenLeftRb = brokenBlockLeft.GetComponent<Rigidbody>();
@@ -23,24 +26,55 @@ public class Block : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag.Contains("Sword"))
-        {
-            Hit();
-            if ((other.CompareTag("ColorASword") && blockColor == Color.COLORA) || //Correct Case 1
-                (other.CompareTag("ColorBSword") && blockColor == Color.COLORB)) // Correct Case 2
+        {          
+            /*if (IsCorrect(other)) 
             {
+                Hit();
                 GameManager.Instance.AddScore();
             }
             else //wrong case
             {
                 GameManager.Instance.HitWrongBlock();
+            }*/
+
+            // Break only if the threshold is greated otherwise the Block will be considered missed
+
+            if(other.CompareTag(SWORD_A_TAG))
+            {
+                if(GameManager.Instance.isGreaterThanThreshold(Color.COLORA))
+                {
+                    Hit();
+                    if (blockColor == Color.COLORA)
+                        GameManager.Instance.AddScore();
+                    else
+                        GameManager.Instance.HitWrongBlock();
+                }
             }
+            else if(other.CompareTag(SWORD_B_TAG))
+            {
+                if (GameManager.Instance.isGreaterThanThreshold(Color.COLORB))
+                {
+                    Hit();
+                    if (blockColor == Color.COLORB)
+                        GameManager.Instance.AddScore();
+                    else
+                        GameManager.Instance.HitWrongBlock();
+                }
+            }
+
+            
         }       
       
     }
-
+   
+   /* private bool IsCorrect(Collider other)
+    {
+        return (other.CompareTag(SWORD_A_TAG) && blockColor == Color.COLORA) || //Correct Case 1
+                (other.CompareTag(SWORD_B_TAG) && blockColor == Color.COLORB); // Correct Case 2
+    }*/
   
 
-    private void Hit()
+    public void Hit()
     {
         //enabling broken pieces
         brokenBlockRight.SetActive(true);

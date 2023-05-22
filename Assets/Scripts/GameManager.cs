@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,10 @@ public class GameManager : MonoBehaviour
     public float wrongBlockLife = 0.8f;
     public float lifeRegenrate = 0.1f;
     public float SwordHitVelocityThreshold = 0.5f;
+
+    public VelocityTracker velocityTrackerA;
+    public VelocityTracker velocityTrackerB;
+    public float swordHitVelocityThreshold = 0.5f;
 
     // Singleton
     #region Singleton
@@ -47,6 +52,12 @@ public class GameManager : MonoBehaviour
         LifeTime -= wrongBlockLife;
     }
 
+    // Returns whether the swords velocity is greater than the threshold depending on which sword is being used
+    public bool isGreaterThanThreshold(Color color) 
+    {
+        return color == Color.COLORA ? velocityTrackerA.velocity.magnitude > 0.5f : velocityTrackerB.velocity.magnitude > 0.5f;
+    }
+
     private void Update()
     {
         if(LifeTime>=0)
@@ -60,6 +71,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoseGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void WinGame()
     {
         SceneManager.LoadScene(0);
     }

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 4e50f5e3917970b4fa061160a8573789, type: 3}
   bpm: 114
-  startTime: 4
+  startTime: 5
   speed: 6
