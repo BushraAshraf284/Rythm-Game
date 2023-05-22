@@ -33,6 +33,11 @@ public class Track : MonoBehaviour
         Invoke("SongOver", song.clip.length);
     }
 
+
+    void SongOver()
+    {
+        GameManager.Instance.WinGame();
+    }
    /* IEnumerator MakeTrack()
     {
         float beatLength = 60.0f / (float)song.bpm;
