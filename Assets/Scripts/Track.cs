@@ -10,20 +10,24 @@ public class Track : MonoBehaviour
     public Block ColorAPrefab;
     public Block ColorBPrefab;
     bool songOver;
+
+    public bool Stop;
     // Start is called before the first frame update
-    void Start()
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(!Stop)
+            transform.position += Vector3.back * song.speed * Time.deltaTime;
+    }
+
+    public void Init()
     {
         transform.position = Vector3.forward * (song.speed * GameManager.Instance.startTime);
         Invoke(nameof(StartSong), GameManager.Instance.startTime - song.startTime);
         MakeTrack();
         //StartCoroutine(MakeTrack());
         songOver = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position += Vector3.back * song.speed * Time.deltaTime;
     }
 
     void StartSong()

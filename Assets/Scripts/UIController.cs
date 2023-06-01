@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
 {
     public TMP_Text ScoreText;
     public Image LifeTimeBar;
+    public TMP_Text Message;
     // Singleton
     #region Singleton
     public static UIController Instance;
@@ -21,6 +22,10 @@ public class UIController : MonoBehaviour
 
     }
     #endregion
+    private void Start()
+    {
+        Message.gameObject.SetActive(false);
+    }
     public void UpdatescoreText()
     {
         ScoreText.text = GameManager.Instance.score.ToString();
@@ -29,6 +34,12 @@ public class UIController : MonoBehaviour
     public void UpdateLifeBar()
     {
         LifeTimeBar.fillAmount = GameManager.Instance.LifeTime;
+    }
+
+    public void ShowMessage( bool isWin)
+    {
+        Message.gameObject.SetActive(true);
+        Message.text = isWin ? "You Win!" : "You Lose!"; 
     }
     
 }
